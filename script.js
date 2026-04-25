@@ -527,7 +527,7 @@ async function fetchQrImageData(url) {
       try {
         const canvas = document.createElement('canvas');
         // Scale to thermal printer width (384px for 58mm printer)
-        const targetWidth = 384;
+        const targetWidth = 128;
         const scale = targetWidth / img.width;
         const targetHeight = Math.round(img.height * scale);
 
