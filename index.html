@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Dashboard Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Main Menu -->
+  <div class="main-menu" id="mainMenu">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Dashboard Admin</span>
+      </div>
+      <div class="top-bar-right">
+        <span id="clockTime">00:00</span>
+        <span id="clockDate">-</span>
+      </div>
+    </div>
+
+    <div class="app-grid" id="appGrid">
+      <!-- Master Admin -->
+      <div class="app-icon" onclick="openAppModal('masterAdmin')">
+        <div class="app-icon-visual master-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <span class="app-label">Master Admin</span>
+      </div>
+
+      <!-- QR Printer -->
+      <div class="app-icon" onclick="openAppModal('qrPrinter')">
+        <div class="app-icon-visual qr-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+            <path d="M14 14h7v7h-7z"/>
+            <path d="M14 17h4M17 14v7"/>
+          </svg>
+        </div>
+        <span class="app-label">Cetak QR</span>
+      </div>
+
+      <!-- Kode Khusus -->
+      <div class="app-icon" onclick="openAppModal('kodeKhusus')">
+        <div class="app-icon-visual kode-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <span class="app-label">Kode Khusus</span>
+      </div>
+
+      <!-- Statistik -->
+      <div class="app-icon" onclick="openAppModal('statistik')">
+        <div class="app-icon-visual stats-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18"/>
+            <path d="M18 17V9"/>
+            <path d="M13 17V5"/>
+            <path d="M8 17v-3"/>
+          </svg>
+        </div>
+        <span class="app-label">Statistik</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- App Modal Overlay -->
+  <div class="app-modal" id="appModal">
+    <div class="app-modal-content" id="appModalContent"></div>
+    <button class="back-btn" id="backBtn" onclick="closeAppModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      <span>Kembali</span>
+    </button>
+  </div>
+
+  <!-- Student Detail Modal (for Master Admin) -->
+  <div id="studentModal" class="modal">
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <!-- Save Indicator -->
+  <div class="save-indicator" id="saveIndicator"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
