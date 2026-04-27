@@ -75,7 +75,6 @@ function renderKodeKhususList() {
 
   container.innerHTML = html;
 
-  // Show FAB when list is visible
   const fab = document.getElementById('kodeFab');
   if (fab) fab.style.display = 'flex';
 }
@@ -98,7 +97,6 @@ function showKodeGenerateForm() {
   const container = document.getElementById('kodeContainer');
   if (!container) return;
 
-  // Hide FAB while in form
   const fab = document.getElementById('kodeFab');
   if (fab) fab.style.display = 'none';
 
@@ -107,7 +105,17 @@ function showKodeGenerateForm() {
 
   container.innerHTML = `
     <div class="kode-generate-form">
-      ... rest stays the same ...
+      <h3>Buat Kode Khusus Baru</h3>
+      <div class="kode-search-wrap">
+        <div class="search-box">
+          <input type="text" id="kodeSearchInput" placeholder="Cari nama siswa..." autocomplete="off">
+        </div>
+        <div class="qr-autocomplete" id="kodeAutocomplete"></div>
+      </div>
+      <div id="kodeSelectedStudent"></div>
+      <div id="kodeGeneratedCodes"></div>
+      <div id="kodeActionButtons"></div>
+      <button class="kode-cancel-btn" onclick="renderKodeKhususList()">Batal</button>
     </div>`;
 
   if (sumberStudents.length === 0) {
