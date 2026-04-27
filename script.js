@@ -847,8 +847,27 @@ function generateKodeKhusus() {
     showIndicator('error', 'Gagal generate kode unik, coba lagi');
     return;
   }
+  try {
+  const res = await fetch(GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify({
+      action: 'saveKodeKhusus',
+      idSiswa: kodeSelectedStudent.id,
+      nama: kodeSelectedStudent.nama,
+      kelas: kodeSelectedStudent.kelas || '',
+      kodes: kodeGeneratedCodes
+    })
+  });
+  const result = await res.json();
+  if (result.status !== 'ok') throw new Error(result.message || 'Gagal menyimpan');
+  
+  showIndicator('success', 'Kode tersimpan!');
+  renderKodeActionButtons(); // shows print button
+} catch (err) {
+  showIndicator('error', err.message || 'Gagal menyimpan');
+  kodeGeneratedCodes = []; // reset so user can retry
+}
 
-  renderKodeActionButtons();
 }
 
 async function printKodeThermal() {
@@ -866,24 +885,11 @@ if (!bluetoothCharacteristic) {
     if (printBtn) printBtn.disabled = true;
 
     // Save to sheet first — FIX: action goes in body, not URL
-    const res = await fetch(GAS_URL, {
-      method: 'POST',
-      body: JSON.stringify({
-        action: 'saveKodeKhusus',
-        idSiswa: kodeSelectedStudent.id,
-        nama: kodeSelectedStudent.nama,
-        kelas: kodeSelectedStudent.kelas || '',
-        kodes: kodeGeneratedCodes
-      })
-    });
-
-    const result = await res.json();
-    if (result.status !== 'ok') throw new Error(result.message || 'Gagal menyimpan');
-
+   
     // Print via Bluetooth
     await sendKodeToPrinter();
 
-    showIndicator('success', 'Kode tersimpan & dicetak!');
+    showIndicator('success', 'Kode dicetak!');
 
     setTimeout(() => {
       kodeSelectedStudent = null;
