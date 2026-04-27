@@ -828,7 +828,7 @@ function renderKodeActionButtons() {
   }
 }
 
-function generateKodeKhusus() {
+async function generateKodeKhusus() {
   if (!kodeSelectedStudent) return;
 
   const existingCodes = new Set(kodeKhususList.map(k => k.kode));
