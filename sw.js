@@ -4,7 +4,8 @@ const ASSETS = [
   './index.html',
   './style.css',
   './laporan.css',
-  './Statistik.css',
+  './CSS/Statistik.css',
+  './manifest.json',
   './js/config.js',
   './js/utility.js',
   './js/bluetooth.js',
@@ -12,9 +13,10 @@ const ASSETS = [
   './js/Qrprint.js',
   './js/Kodekhusus.js',
   './js/statistikPage.js',
-  './js/app.js',
   './js/laporan.js',
-  './manifest.json'
+  './js/app.js',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
 self.addEventListener('install', (e) => {
@@ -37,23 +39,18 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
-// Mobile-friendly fetch: cache first, then network
+// REQUIRED: Chrome won't show install prompt without this fetch handler
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request).then((cached) => {
-      // Return cached version immediately (fast on mobile)
-      // Then fetch fresh version in background for next time
-      const fetchPromise = fetch(e.request).then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
-          const clone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(e.request, clone);
-          });
+      return cached || fetch(e.request).then((response) => {
+        // Cache new successful requests for offline use
+        if (response && response.status === 200 && response.type === 'basic') {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
         }
-        return networkResponse;
-      }).catch(() => cached);
-      
-      return cached || fetchPromise;
+        return response;
+      });
     })
   );
 });
