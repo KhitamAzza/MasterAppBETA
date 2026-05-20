@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-   <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <!-- PWA: Manifest & Theme -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="background-color" content="#0a0a0f">
+  
+  <!-- PWA: iOS Safari (Required for iPhone standalone mode) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Admin">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  
+  <!-- PWA: Android/Chrome -->
+  <meta name="mobile-web-app-capable" content="yes">
+  
   <title>Dashboard Admin</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="laporan.css">
   <link rel="stylesheet" href="CSS/Statistik.css">
 </head>
 <body>
@@ -94,6 +110,7 @@
   <!-- Save Indicator -->
   <div class="save-indicator" id="saveIndicator"></div>
 
+  <!-- Scripts -->
   <script src="js/config.js"></script>
   <script src="js/utility.js"></script>
   <script src="js/bluetooth.js"></script>
@@ -101,8 +118,11 @@
   <script src="js/Qrprint.js"></script>
   <script src="js/Kodekhusus.js"></script>
   <script src="js/statistikPage.js"></script>
+  <script src="js/laporan.js"></script>
   <script src="js/app.js"></script>
-   <script>
+  
+  <!-- Service Worker Registration -->
+  <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
@@ -110,5 +130,6 @@
           .catch((err) => console.log('SW failed:', err));
       });
     }
+  </script>
 </body>
 </html>
