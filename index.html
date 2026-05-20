@@ -123,12 +123,29 @@
   
   <!-- Service Worker Registration -->
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-          .then((reg) => console.log('SW registered for mobile'))
-          .catch((err) => console.log('SW failed:', err));
-      });
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later
+      deferredPrompt = e;
+      console.log('PWA install prompt ready');
+      
+      // Optional: show your own install button here
+      // You can create a floating "Install App" button in your UI
+    });
+
+    // Optional: function to trigger install from a button
+    async function installPWA() {
+      if (!deferredPrompt) {
+        alert('Installasi tidak tersedia. Untuk iOS, gunakan Share → Add to Home Screen.');
+        return;
+      }
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response: ${outcome}`);
+      deferredPrompt = null;
     }
   </script>
 </body>
