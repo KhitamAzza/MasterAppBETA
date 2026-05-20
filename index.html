@@ -102,5 +102,13 @@
   <script src="js/Kodekhusus.js"></script>
   <script src="js/statistikPage.js"></script>
   <script src="js/app.js"></script>
+   <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then((reg) => console.log('SW registered for mobile'))
+          .catch((err) => console.log('SW failed:', err));
+      });
+    }
 </body>
 </html>
